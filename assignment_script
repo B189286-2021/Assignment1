@@ -1,0 +1,147 @@
+#!/bin/bash
+
+
+#Locate the paired-end raw sequence data in the fastq folder
+cd /localdisk/data/BPSM/AY21/fastq
+
+#Look to see what's in the file
+cat fastq
+
+#Count the total number of files in the folder
+ls | wc -l
+
+#Create a new directory: Assignment1
+mkdir ~/Assignment1
+
+#make directory for fastq files
+mkdir ~/Assignment1/fastq
+
+#copy in fastq files
+cp /localdisk/data/BPSM/AY21/fastq/100k* .
+
+#confirm all files were copied in
+ls | wc -l
+
+#Count the number of Clone1 files in 100k.fqfiles - contains all sample detailes
+ls | grep "100k.C1" | wc -l
+
+#Count the number of Clone2 files 
+ls | grep "100k.C2" | wc -l
+
+#Count the number of WT files:
+ls | grep "100k.WT" | wc -l
+
+#Look at the sample details in 100k.fqfiles
+head 100k.fqfiles            
+
+#The headings of the table can be viewed - appears to be 7 tabs
+#Check the bottom of the file:
+tail 100k.fqfiles
+
+#Confirm there's  7 fields:
+cat 100k.fqfiles | awk '{
+FS="\t" ;
+if(NF == 7)
+{print $0 ;}
+}' | wc -l
+
+#Check if there's any lines without 7 tabs:
+cat 100k.fqfiles | awk '{
+FS="\t" ;
+if(NF !== 7)
+{print $0 ;}
+}' | wc -l
+
+#No. of rows excluding header
+grep -v "ID" 100k.fqfiles | awk '{
+FS="\t" ;
+if(NF == 7)
+{print $0 ;}
+}' | wc -l
+
+#How many Clone1 samples @ time 0
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "0")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+ 
+#No. of Clone1 samples @ time 24
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "24")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#No. of Clone1 samples @ time 48
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "48")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#How many Clone2 samples @ time 0
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "0")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#How many Clone2 samples @ time 24
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "24")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#How many Clone2 samples @ time 48
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "48")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#No. of WT samples @ time 0
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "0")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#No. of WT samples @ time 24
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "24")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#No. of WT samples @ time 48
+awk '{
+FS="\t" ;
+if($2 == "C1" && $4 == "48")
+{print $0 ;}
+}' 100k.fqfiles | wc -l
+
+#Unzip the gzipped files
+gunzip *.fq.gz
+
+#Use FastQC tool to produce quality analysis report on FASTQ files
+fastqc *.fq ls
+
+#create directory for fastqc results in Assignment1 folder
+mkdir ~/Assignment1/Assignment1/fastqc_results
+
+#move fastqc results to new directory
+mv ~/Assignment1/fastq/*fastqc* ~/Assignment1/fastqc_results
+
+#Open the html link in Firefox
+Firefox & *html
+
+#use for loop to unzip multiple zip files
+#for loop used as 'unzip' command expects to get only one zip file
+for zip in *.zip
+do
+unzip $zip
+done > quality_control_results
+ 
