@@ -78,4 +78,5 @@ cat {base}.counts.bed |\
 > awk '{if($6> 0) print $6'} | wc -l
 done
 
+#generate table with mean reads and use while read to access column to generate fold-change data from mean data
 
