@@ -57,6 +57,8 @@ base=$(basename $i ".sorted.bam")
 bedtools multicov -s -bams ${base}.sorted.bam -bed ~/Assignment1/bedtools.TriTrypDB-46_TcongolenseIL3000_2019.bed > ${base}_counts.bed
 done
 
+
+#!usr/bin/awk -f 
 #count no. of overlapping features
 for i in *counts.bed
 do
