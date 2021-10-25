@@ -17,7 +17,7 @@ mkdir ~/Assignment1
 mkdir ~/Assignment1/fastq
 
 #copy in fastq files
-cp /localdisk/data/BPSM/AY21/fastq/100k* .
+cp /localdisk/data/BPSM/AY21/fastq/100k* ~/Assignment1/fastq
 
 #confirm all files were copied in
 ls | wc -l
@@ -37,6 +37,8 @@ head 100k.fqfiles
 #The headings of the table can be viewed - appears to be 7 tabs
 #Check the bottom of the file:
 tail 100k.fqfiles
+
+#!/usr/bin/awk -f
 
 #Confirm there's  7 fields:
 cat 100k.fqfiles | awk '{
